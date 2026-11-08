@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pizza Haus – Order pizza online</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Pizza Haus</div>
+    <nav>
+      <button class="tab active" data-view="homeView">Home</button>
+      <button class="tab" data-view="menuView">Menu</button>
+      <button class="tab" data-view="trackView">Track order</button>
+      <button class="tab hidden" id="ordersTab" data-view="ordersView">My orders</button>
+      <button class="tab" data-view="aboutView">About</button>
+      <button class="tab hidden" id="editorTab" data-view="editorView">Edit menu</button>
+      <button class="tab hidden" id="kitchenTab" data-view="kitchenView">Kitchen</button>
+      <button class="cartbtn" id="cartToggle">Cart (<span id="count">0</span>)</button>
+    </nav>
+    <span id="authBox" class="authbox"></span>
+  </header>
+
+  <section id="homeView" class="view">
+    <div class="hero2">
+      <div class="heroText"><h1>Fresh. Hot.<br>Delivered!</h1><p>FEED THE BARKADA</p></div>
+      <img class="heroPhoto" src="https://static.vecteezy.com/system/resources/previews/010/378/047/large_2x/asian-friends-couple-eating-pizza-during-party-at-pizzeria-happy-indian-people-having-fun-together-eating-italian-food-and-sitting-on-couch-photo.jpg" referrerpolicy="no-referrer" alt="Friends enjoying pizza together" onerror="this.onerror=null;this.src='/images/hero-family.jpg'">
+    </div>
+    <div class="locator">
+      <div class="ltabs">
+        <button class="ltab active" data-mode="Delivery">Delivery</button>
+        <button class="ltab" data-mode="Pickup">Pickup</button>
+      </div>
+      <div class="lbody">
+        <strong>Check local menu / deals</strong>
+        <small>Enter your address to see the menu</small>
+        <div id="paneDelivery">
+          <div class="goRow"><input id="homeAddress" placeholder="Address" aria-label="Delivery address" autocomplete="street-address"><button class="go" id="goDelivery">Go</button></div>
+          <p id="locMsg" class="warn hidden"></p>
+          <button class="linkbtn" id="useLoc"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>Pin my location on the map</button>
+        </div>
+        <div id="panePickup" class="hidden">
+          <div class="goRow"><select id="branch" aria-label="Pickup branch"><option>Pizza Haus – Caloocan</option><option>Pizza Haus – Quezon City</option><option>Pizza Haus – Manila</option></select><button class="go" id="goPickup">Go</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="promos">
+      <button class="promo p1" data-voucher="FREEDEL"><span class="tag">Voucher FREEDEL</span><h3>Free delivery</h3><p>On orders of ₱300 and up. Tap to claim it and start ordering.</p><span class="cta">Order now →</span></button>
+      <button class="promo p2" data-voucher="PIZZA10"><span class="tag">Voucher PIZZA10</span><h3>10% off pizza night</h3><p>On orders of ₱400 and up. Tap to claim your discount.</p><span class="cta">Order now →</span></button>
+    </div>
+  <div class="gallery">
+      <figure><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&h=560&q=75" alt="Freshly baked cheese pizza" loading="lazy"><figcaption><h4>Fresh dough, baked to order</h4><p>Stretched by hand and baked hot, never reheated.</p></figcaption></figure>
+      <figure><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=700&h=560&q=75" alt="Pizza on a wooden board" loading="lazy"><figcaption><h4>Real mozzarella</h4><p>Generous cheese on every pizza, edge to edge.</p></figcaption></figure>
+      <figure><img src="https://images.unsplash.com/photo-1542282811-943ef1a977c3?auto=format&fit=crop&w=700&h=560&q=75" alt="Pepperoni pizza" loading="lazy"><figcaption><h4>Delivered to your door</h4><p>Pin your exact spot so the rider finds you fast.</p></figcaption></figure>
+    </div>
+  </section>
+
+  <section id="menuView" class="view hidden">
+    <div class="menuhero"><h2>Our menu</h2><p>Baked fresh and delivered hot</p></div>
+    <div class="deliverbar">Ordering for: <b id="deliverTo">Delivery (no address yet)</b> <button class="linkbtn" id="changeAddr">Change</button></div>
+    <div id="vbanner" class="vbanner hidden"></div>
+    <div class="layout">
+      <div><div class="toolbar"><input id="search" type="search" placeholder="Search the menu" aria-label="Search the menu"><select id="sort" aria-label="Sort dishes"><option value="">Recommended</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option><option value="az">Name: A to Z</option></select></div>
+      <div id="categories" class="chips"></div><div id="menu" class="menu"></div></div>
+      <aside class="cart" id="cart">
+        <h2>Your cart</h2>
+        <div id="cartItems"></div>
+        <div class="vbox"><input id="voucherInput" placeholder="Voucher code" maxlength="20" aria-label="Voucher code"><button class="vapply" id="applyVoucher">Apply</button></div><p id="vmsg" class="msg"></p>
+        <div class="sums">
+          <div><span>Subtotal</span><span id="subtotal">₱0</span></div>
+          <div id="discRow" class="hidden disc"><span>Voucher discount</span><span id="disc">−₱0</span></div>
+          <div id="feeRow"><span>Delivery fee</span><span id="fee">₱0</span></div>
+          <div class="grand"><span>Total</span><span id="total">₱0</span></div>
+        </div>
+        <div class="seg">
+          <label><input type="radio" name="type" value="Delivery" checked> Delivery</label>
+          <label><input type="radio" name="type" value="Pickup"> Pickup</label>
+        </div>
+        <label>Name<input id="customer" maxlength="40" autocomplete="name"></label>
+        <label>Phone<input id="phone" type="tel" maxlength="20" autocomplete="tel"></label>
+        <label id="addrRow">Delivery address<input id="address" maxlength="150" autocomplete="street-address"><button class="linkbtn" id="pinCart" type="button"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>Pin my location on the map</button></label>
+        <label>Payment<select id="payment"><option>Cash</option><option>GCash</option><option>Card</option></select></label>
+        <label>Notes (optional)<input id="notes" maxlength="200"></label>
+        <p id="msg" class="msg" role="status"></p>
+        <button id="placeOrder" class="primary">Place order</button>
+      </aside>
+    </div>
+  </section>
+
+  <section id="trackView" class="view hidden narrow">
+    <h2>Track your order</h2>
+    <div id="myOrders" class="myorders"></div>
+    <div class="trackform"><input id="trackId" inputmode="numeric" placeholder="Order number, e.g. 1001" aria-label="Order number"><button id="trackBtn" class="primary">Track</button></div>
+    <div id="trackResult"></div>
+  </section>
+
+  <section id="kitchenView" class="view hidden">
+    <h2 class="pad">Incoming orders</h2><div id="orders" class="orders"></div>
+  </section>
+
+  <section id="ordersView" class="view hidden narrow"><h2>My orders</h2><div id="history"></div></section>
+
+  <section id="aboutView" class="view hidden narrow">
+    <div class="story">
+      <h2>Our story</h2>
+      <p class="lead">Pizza for the whole barkada.</p>
+      <p>It all began in a small kitchen in Bagong Silang, Caloocan, where Nanay Luz wanted just one thing: a table full of the people she loved. Every Sunday, cousins, neighbors and friends squeezed in around it, and nobody ever left hungry.</p>
+      <p>The first pizza was for her youngest child's birthday. Money was tight, so she stretched the dough by hand, spread a simple tomato sauce and covered it with cheese. It was not perfect, but the whole house crowded around it, laughing, and it was gone in minutes.</p>
+      <blockquote>"Food tastes better when it is shared." That was her rule, and it still is ours.</blockquote>
+      <p>Word spread down the street. Neighbors began knocking on the gate: "Nay, can we order one for tonight?" Soon a handwritten menu was taped to the fence, and the family kitchen became Pizza Haus at 176 Bagong Silang.</p>
+      <p>Today we still make our dough fresh every morning and bake every pizza to order, just the way she did. We think pizza is best on a birthday, after a long day, or on an ordinary Sunday when everyone is finally home. When you order from us, you are not just a customer. You are part of the barkada.</p>
+      <p class="sign">Thank you for letting us sit at your table.<br><strong>The Pizza Haus family</strong></p>
+    </div>
+    <h3>Visit and contact us</h3>
+    <div class="infogrid">
+      <div class="box"><h3>Opening hours</h3><table class="hours"><tr><td>Monday to Friday</td><td>10:00 AM to 10:00 PM</td></tr><tr><td>Saturday and Sunday</td><td>9:00 AM to 11:00 PM</td></tr></table></div>
+      <div class="box"><h3>Contact us</h3><p>Phone: (+63) 992 245 4567<br>Email: pizzahaus@.gmail.com</p></div>
+    </div>
+    <h3>Our branches</h3>
+    <div class="infogrid">
+      <div class="box"><strong>Caloocan</strong><br>176 Bagong Silang, Caloocan City</div>
+      <div class="box"><strong>Quezon City</strong><br>45 Timog Avenue, Quezon City</div>
+      <div class="box"><strong>Manila</strong><br>78 Taft Avenue, Manila</div>
+    </div>
+  </section>
+
+  <section id="editorView" class="view hidden"><h2 class="pad">Edit menu</h2><div id="editor" class="editor"></div></section>
+
+  <div id="mobileBar" class="mobilebar"><span><b id="mbCount">0</b> items · <span id="mbTotal">₱0</span></span><button class="go" id="mbGo">View cart</button></div>
+
+  <dialog id="legalDlg"><div class="dlg" id="legalBody"></div></dialog>
+
+  <dialog id="receiptDlg"><div class="dlg" id="receiptBody"></div></dialog>
+
+  <footer class="foot">
+    <div class="footgrid">
+      <div><h4>Menu</h4><button class="flink" data-fcat="All">Full menu</button><button class="flink" data-fcat="Pizza">Pizza</button><button class="flink" data-fcat="Pasta">Pasta</button><button class="flink" data-fcat="Sides">Sides</button><button class="flink" data-fcat="Desserts">Desserts</button><button class="flink" data-fcat="Drinks">Drinks</button></div>
+      <div><h4>About us</h4><button class="flink" data-fview="aboutView">Our story</button><button class="flink" data-fview="aboutView">Find a branch</button><span class="flink">176 Bagong Silang,<br>Caloocan City</span></div>
+      <div><h4>Customer service</h4><button class="flink" data-fview="aboutView">Contact us</button><button class="flink" data-fview="trackView">Track an order</button><span class="flink">(02) 8123 4567</span></div>
+      <div><h4>My account</h4><button class="flink" data-fview="ordersView">My orders</button><button class="flink" data-fauth="login">Login</button><button class="flink" data-fauth="signup">Sign up</button></div>
+      <div><h4>Connect with Pizza Haus</h4><a class="flink" href="https://www.facebook.com" target="_blank" rel="noopener">Facebook</a><a class="flink" href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a><a class="flink" href="https://www.tiktok.com" target="_blank" rel="noopener">TikTok</a><a class="flink" href="https://www.youtube.com" target="_blank" rel="noopener">YouTube</a></div>
+    </div>
+    <div class="footbar"><button data-fview="aboutView">Contact Us</button> | <button data-legal="privacy">Privacy Policy</button> | <button data-legal="terms">Terms &amp; Conditions</button> | Copyright © 2026 Pizza Haus. All rights reserved | Photos are for reference only</div>
+  </footer>
+
+  <dialog id="authDlg" data-mode="login"><div class="dlg">
+    <div class="ltabs"><button class="atab active" data-auth="login">Login</button><button class="atab" data-auth="signup">Sign up</button></div>
+    <p id="authNote" class="msg"></p>
+    <label class="signonly">Full name<input id="aName" maxlength="40" autocomplete="name"></label>
+    <label>Email<input id="aEmail" type="email" autocomplete="email"></label>
+    <label class="signonly">Phone<input id="aPhone" type="tel" autocomplete="tel"></label>
+    <label>Password<input id="aPass" type="password" autocomplete="current-password"></label>
+    <label class="signonly check"><input type="checkbox" id="aStaff"> I am a staff member</label>
+    <label id="staffRow" class="hidden">Staff access code<input id="aCode" type="password" autocomplete="off"></label>
+    <p id="authMsg" class="msg err"></p>
+    <button class="primary wide" id="authGo">Login</button>
+    <button class="ghost" id="authClose">Cancel</button>
+  </div></dialog>
+
+  <dialog id="mapDlg"><div class="dlg">
+    <h3>Pin your delivery location</h3>
+    <div class="goRow"><input id="mapSearch" placeholder="Search street, barangay or landmark" aria-label="Search address"><button class="go" id="mapFind">Search</button></div>
+    <div id="map"></div>
+    <p class="hint">Drag the pin or tap the map to set your exact spot.</p>
+    <textarea id="mapAddr" rows="2" aria-label="Pinned address" placeholder="Pinned address (add house no., unit or landmark)"></textarea>
+    <div class="dlgfoot"><button class="ghost" id="mapCancel">Cancel</button><button class="go confirm" id="mapOk">Confirm location</button></div>
+  </div></dialog>
+
+  <dialog id="dlg"><form method="dialog" id="dlgBody"></form></dialog>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+[
+  {
+    "id": 1,
+    "name": "Pepperoni Lover's",
+    "category": "Pizza",
+    "emoji": "🍕",
+    "image": "https://images.unsplash.com/photo-1542282811-943ef1a977c3?auto=format&fit=crop&w=600&h=420&q=80",
+    "desc": "Double pepperoni, mozzarella, signature tomato sauce.",
+    "prices": {
+      "Personal": 199,
+      "Medium": 399,
+      "Large": 599
+    }
+  },
+  {
+    "id": 2,
+    "name": "Hawaiian Supreme",
+    "category": "Pizza",
+    "emoji": "🍕",
+    "image": "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?auto=format&fit=crop&w=600&h=420&q=80",
+    "desc": "Ham, pineapple and extra cheese.",
+    "prices": {
+      "Personal": 189,
+      "Medium": 379,
+      "Large": 569
+    }
+  },
+  {
+    "id": 3,
+    "name": "Meat Lover's",
+    "category": "Pizza",
+    "emoji": "🍕",
+    "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&h=420&q=80",
+    "desc": "Pepperoni, ham, sausage, bacon and ground beef.",
+    "prices": {
+      "Personal": 229,
+      "Medium": 449,
+      "Large": 669
+    }
+  },
+  {
+    "id": 4,
+    "name": "Cheese Overload",
+    "category": "Pizza",
+    "emoji": "🍕",
+    "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&h=420&q=80",
+    "desc": "Four-cheese blend on a rich creamy base.",
+    "prices": {
+      "Personal": 199,
+      "Medium": 399,
+      "Large": 599
+    }
+  },
+  {
+    "id": 5,
+    "name": "Supreme",
+    "category": "Pizza",
+    "emoji": "🍕",
+    "image": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=600&h=420&q=80",
+    "desc": "Pepperoni, sausage, peppers, onions, mushrooms, olives.",
+    "prices": {
+      "Personal": 219,
+      "Medium": 429,
+      "Large": 649
+    }
+  },
+  {
+    "id": 6,
+    "name": "Veggie Delight",
+    "category": "Pizza",
+    "emoji": "🍕",
+    "image": "https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?auto=format&fit=crop&w=600&h=420&q=80",
+    "desc": "Bell peppers, mushrooms, onions, olives, tomatoes.",
+    "prices": {
+      "Personal": 179,
+      "Medium": 369,
+      "Large": 549
+    }
+  },
+  {
+    "id": 7,
+    "name": "Baked Spaghetti",
+    "category": "Pasta",
+    "emoji": "🍝",
+    "image": "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=600&h=420&q=80",
+    "desc": "Meaty tomato sauce, melted cheese.",
+    "price": 149
+  },
+  {
+    "id": 8,
+    "name": "Creamy Carbonara",
+    "category": "Pasta",
+    "emoji": "🍝",
+    "image": "https://images.unsplash.com/photo-1633337474564-1d9478ca4e2e?auto=format&fit=crop&w=600&h=420&q=80",
+    "desc": "Bacon, mushrooms, white cream sauce.",
+    "price": 159
+  },
+  {
+    "id": 9,
+    "name": "Lasagna",
+    "category": "Pasta",
+    "emoji": "🍝",
+    "image": "https://www.thespruceeats.com/thmb/Lm5HsN9T6Z9DHJ0Qca4w_n-VDAg=/2811x1874/filters:no_upscale():max_bytes(150000):strip_icc()/Step_1_Basic_Lasagna_with_Meaty_Sauce-5a99f20ec67335003717d34b.jpg",
+    "desc": "Layered pasta, beef ragu, béchamel.",
+    "price": 179
+  },
+  {
+    "id": 10,
+    "name": "Garlic Bread",
+    "category": "Sides",
+    "emoji": "🥖",
+    "image": "https://thefoodcharlatan.com/wp-content/uploads/2023/05/Garlic-Bread-Recipe-15.jpg",
+    "desc": "Toasted, buttery, with cheese dip.",
+    "price": 99
+  },
+  {
+    "id": 11,
+    "name": "Chicken Wings (6)",
+    "category": "Sides",
+    "emoji": "🍗",
+    "image": "https://drdavinahseats.com/wp-content/uploads/2020/06/Crispy-Baked-Chicken-Wings-Close-up-1025x1536.jpg",
+    "desc": "Buffalo or honey garlic glaze.",
+    "price": 189
+  },
+  {
+    "id": 12,
+    "name": "Cheesy Fries",
+    "category": "Sides",
+    "emoji": "🍟",
+    "image": "https://www.acouplecooks.com/wp-content/uploads/2022/06/Cheese-Fries-005.jpg",
+    "desc": "Crinkle fries with cheese sauce.",
+    "price": 119
+  },
+  {
+    "id": 13,
+    "name": "Choco Lava Cake",
+    "category": "Desserts",
+    "emoji": "🍫",
+    "image": "https://insanelygoodrecipes.com/wp-content/uploads/2024/12/Lava-Cake-2.jpg",
+    "desc": "Warm cake with molten chocolate center.",
+    "price": 89
+  },
+  {
+    "id": 14,
+    "name": "Iced Tea",
+    "category": "Drinks",
+    "emoji": "🥤",
+    "image": "https://insanelygoodrecipes.com/wp-content/uploads/2022/09/Classic-Lemon-Iced-Tea-in-Glass.jpg",
+    "desc": "House-brewed, lightly sweet.",
+    "price": 59
+  },
+  {
+    "id": 15,
+    "name": "Cola",
+    "category": "Drinks",
+    "emoji": "🥤",
+    "image": "https://images.pexels.com/photos/24860314/pexels-photo-24860314/free-photo-of-close-up-of-a-coca-cola-can.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "desc": "Ice-cold, 500 ml.",
+    "price": 59
+  }
+]
